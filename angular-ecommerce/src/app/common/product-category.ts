@@ -1,6 +1,8 @@
 export class ProductCategory {
 
-    id: number | undefined;
-    categoryName: string | undefined;
-    
+    constructor(
+        public id: number,
+        public categoryName: string
+    )
+    {}
 }
