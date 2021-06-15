@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId: number;
   currentCategoryName: string;
+  searchMode: boolean;
 
   constructor(
     private productService: ProductService,
@@ -21,6 +22,7 @@ export class ProductListComponent implements OnInit {
     { 
       this.currentCategoryId = 1;
       this.currentCategoryName = "Books";
+      this.searchMode = false;
     }
 
   ngOnInit(): void {
@@ -31,6 +33,18 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
+
+    this.searchMode = this.route.snapshot.paramMap.has('keyword')
+    
+    if (this.searchMode) {
+      this.handleSearchProducts();
+    }
+    else {
+      this.handleListProducts();
+    }
+  }
+
+  handleListProducts() {
 
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
     const hasCategoryName: boolean = this.route.snapshot.paramMap.has('name');
@@ -51,5 +65,21 @@ export class ProductListComponent implements OnInit {
         this.products = data;
       }
     );
+  }
+
+  handleSearchProducts() {
+
+    let keyword = this.route.snapshot.paramMap.get('keyword');
+    if (keyword != null) {
+
+      this.productService.searchProducts(keyword).subscribe(
+        data => {
+          this.products = data;
+        }
+      );
+    }
+    else {
+      throw new Error("keyword is null");
+    }
   }
 }
