@@ -3,9 +3,9 @@
     <input #userInput type="text"
         placeholder="Search for data ..."
         class="au-input au-input-xl"
-        (keyup.enter)="doSearch(myInput.value)" />
+        (keyup.enter)="doSearch(userInput.value)" />
     
-    <button (click)="doSearch(myInput.value)" class="au-btn-submit">
+    <button (click)="doSearch(userInput.value)" class="au-btn-submit">
         Search
     </button>
 
