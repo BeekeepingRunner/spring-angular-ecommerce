@@ -11,17 +11,16 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
-  currentCategoryId: number;
-  currentCategoryName: string;
-  searchMode: boolean;
+  currentCategoryId: number = 1;
+  previousCategoryId: number = 1;
+  currentCategoryName: string = "Books";
+  searchMode: boolean = false;
+
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute)
     { 
-      this.currentCategoryId = 1;
-      this.currentCategoryName = "Books";
-      this.searchMode = false;
     }
 
   ngOnInit(): void {
