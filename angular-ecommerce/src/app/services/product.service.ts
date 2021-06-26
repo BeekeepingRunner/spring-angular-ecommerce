@@ -53,10 +53,10 @@ interface GetResponseProducts {
     products: Product[];
   },
   page: {
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    number: number;
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }
 
