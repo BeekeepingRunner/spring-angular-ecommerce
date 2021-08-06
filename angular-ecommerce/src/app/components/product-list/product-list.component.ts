@@ -73,7 +73,6 @@ export class ProductListComponent implements OnInit {
     }
 
     this.previousCategoryId = this.currentCategoryId;
-    console.log(`currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}`);
     this.productService
       .getProductListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
       .subscribe(
@@ -104,9 +103,6 @@ export class ProductListComponent implements OnInit {
     if (keyword != null) {
 
       this.previousKeyword = keyword;
-      console.log(`keyword=${keyword}, pageNumber=${this.pageNumber}`);
-      console.log(`pageSize=${this.pageSize}`);
-
       this.productService
         .searchProductsPaginate(this.pageNumber - 1, this.pageSize, keyword)
         .subscribe(this.processResult());
