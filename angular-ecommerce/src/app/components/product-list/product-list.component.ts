@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
+import {CartItem} from "../../common/cart-item";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +27,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private cartService: CartService)
     {
     }
 
@@ -73,7 +76,6 @@ export class ProductListComponent implements OnInit {
     }
 
     this.previousCategoryId = this.currentCategoryId;
-    console.log(`currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}`);
     this.productService
       .getProductListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
       .subscribe(
@@ -104,9 +106,6 @@ export class ProductListComponent implements OnInit {
     if (keyword != null) {
 
       this.previousKeyword = keyword;
-      console.log(`keyword=${keyword}, pageNumber=${this.pageNumber}`);
-      console.log(`pageSize=${this.pageSize}`);
-
       this.productService
         .searchProductsPaginate(this.pageNumber - 1, this.pageSize, keyword)
         .subscribe(this.processResult());
@@ -123,5 +122,12 @@ export class ProductListComponent implements OnInit {
       this.pageSize = data.page.size;
       this.totalElements = data.page.totalElements;
     };
+  }
+
+  addToCart(product: Product) {
+    console.log(`Adding to cart: ${product.name}, ${product.unitPrice}`);
+
+    const cartItem = new CartItem(product);
+    this.cartService.addToCart(cartItem);
   }
 }
