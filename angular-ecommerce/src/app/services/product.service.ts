@@ -28,7 +28,9 @@ export class ProductService {
   : Observable<GetResponseProducts> {
 
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`
-                    + `&page=${page}&pageSize=${pageSize}`;
+                    + `&page=${page}&size=${pageSize}`;
+
+    console.log(searchUrl);
 
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
@@ -53,7 +55,7 @@ export class ProductService {
   }
 
   getProductCategories(): Observable<ProductCategory[]> {
-    
+
     return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
       map(response => response._embedded.productCategory)
     )

@@ -26,7 +26,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute)
-    { 
+    {
     }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class ProductListComponent implements OnInit {
   listProducts() {
 
     this.searchMode = this.route.snapshot.paramMap.has('keyword')
-    
+
     if (this.searchMode) {
       this.handleSearchProducts();
     }
@@ -74,7 +74,6 @@ export class ProductListComponent implements OnInit {
 
     this.previousCategoryId = this.currentCategoryId;
     console.log(`currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}`);
-
     this.productService
       .getProductListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
       .subscribe(
@@ -106,6 +105,7 @@ export class ProductListComponent implements OnInit {
 
       this.previousKeyword = keyword;
       console.log(`keyword=${keyword}, pageNumber=${this.pageNumber}`);
+      console.log(`pageSize=${this.pageSize}`);
 
       this.productService
         .searchProductsPaginate(this.pageNumber - 1, this.pageSize, keyword)
