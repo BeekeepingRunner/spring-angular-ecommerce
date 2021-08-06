@@ -14,17 +14,45 @@
             <td>
               <img src="{{ cartItem.imageUrl }}" class="img-responsive" width="150px" />
             </td>
+
             <td>
               <p>{{ cartItem.name }}</p>
               <p>{{ cartItem.unitPrice | currency:'USD' }}</p>
             </td>
+
             <td>
               <div class="items">
-                <label>Quantity:</label> {{ cartItem.quantity }}
+                <label>Quantity:</label>
+
+                <div class="row no-gutters">
+
+                  <div class="col">
+                    <button (click)="incrementQuantity(cartItem)" class="btn btn-primary btn-sm">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+
+                  <div class="col ml-4 mr-2">
+                    {{ cartItem.quantity }}
+                  </div>
+
+                  <div class="col">
+                    <button (click)="decrementQuantity(cartItem)" class="btn btn-primary btn-sm">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+
+                  <div class="col-8"></div>
+                </div>
+                
+                <button (click)="remove(cartItem)" class="btn btn-primary btn-sm mt-2">
+                  Remove
+                </button>
+
+                <p class="mt-2" *ngIf="cartItem.unitPrice">
+                  Subtotal: {{ (cartItem.quantity * cartItem.unitPrice) | currency :'USD'}}
+                </p>
               </div>
-              <p class="mt-2" *ngIf="cartItem.unitPrice">
-                Subtotal: {{ (cartItem.quantity * cartItem.unitPrice) | currency :'USD'}}
-              </p>
             </td>
           </tr>
 
