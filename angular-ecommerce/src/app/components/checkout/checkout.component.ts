@@ -33,7 +33,7 @@ export class CheckoutComponent implements OnInit {
       }),
       creditCard: this.formBuilder.group({
         cardType: [''],
-        name: [''],
+        nameOnCard: [''],
         cardNumber: [''],
         securityCode: [''],
         expirationMonth: [''],
