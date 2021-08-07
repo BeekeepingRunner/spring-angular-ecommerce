@@ -12,10 +12,7 @@ export class CheckoutComponent implements OnInit {
   checkoutFormGroup: FormGroup;
 
   creditCardYears: number[] = [];
-  //creditCardMonths: number[] = [];
-  monthNumbers: number[] = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-  ];
+  creditCardMonths: number[] = [];
 
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -58,6 +55,11 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const startMonth: number = new Date().getMonth() + 1;
 
+    this.shopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCardMonths = data;
+      }
+    );
     this.shopFormService.getCreditCardYears().subscribe(
       data => {
         this.creditCardYears = data;
@@ -79,5 +81,26 @@ export class CheckoutComponent implements OnInit {
     else {
       this.checkoutFormGroup.controls.billingAddress.reset();
     }
+  }
+
+  handleMonthsAndYears() {
+
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = Number(creditCardFormGroup?.value.expirationYear);
+
+    let startMonth: number;
+    if (selectedYear === currentYear) {
+      startMonth = new Date().getMonth() + 1;
+    } else {
+      startMonth = 1;
+    }
+
+    this.shopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCardMonths = data;
+      }
+    )
   }
 }
